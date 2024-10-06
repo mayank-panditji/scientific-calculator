@@ -6,7 +6,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     function evaluate() {
-    const convertedValue=currenValue.replace('%','*0.01')
+    const convertedValue=currenValue
+    .replace('%','*0.01')
+    .replace('sin','Math.sin')
+    .replace('cos','Math.cos')
+    .replace('ln','Math.log')
+    .replace('π','Math.PI')
+    .replace('log','Math.log10')
+    .replace('e','Math.E')
+    .replace('tan','Math.tan')
+    .replace('√','Math.sqrt')
     const result=eval(convertedValue)
       currenValue = result.toString();
       display.value = currenValue;
@@ -15,15 +24,21 @@ document.addEventListener("DOMContentLoaded", function () {
       const button = buttons[i];
       button.addEventListener("click", function () {
         const value = button.innerText;
+      try{
         if (value == "AC") {
-          currenValue = "";
-          display.value = currenValue;
-        } else if (value == "=") {
-          evaluate();
-        } else {
-          currenValue += value;
-          display.value = currenValue;
-        }
+            currenValue = "";
+            display.value = currenValue;
+          } else if (value == "=") {
+            evaluate();
+          } else {
+            currenValue += value;
+            display.value = currenValue;
+          }
+      } catch(error){
+console.error(error)
+currenValue="ERROR"
+display.value=currenValue
+      }
       });
     }
   });
